@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post" action="updatedPokemon">
+    <input type="hidden" id="id" name="id" th:value="${pokemon.id}"><br>
+    <label for="attack">attack</label><br>
+    <input type="number" id="attack" name="attack" th:value="${pokemon.attack}"><br>
+    <label for="defence">defence</label><br>
+    <input type="number" id="defence" name="defence" th:value="${pokemon.defence}"><br>
+    <label for="hp">hp</label><br>
+    <input type="number" id="hp" name="hp" th:value="${pokemon.hp}"><br>
+    <label for="name">name</label><br>
+    <input type="text" id="name" name="name" th:value="${pokemon.name}"><br>
+    <label for="primary">primary type</label><br>
+    <input type="text" id="primary" name="primary" th:value="${pokemon.primary_type}"><br>
+    <label for="secondary">secondary type</label><br>
+    <input type="text" id="secondary" name="secondary" th:value="${pokemon.secondary_type}"><br>
+    <label for="specialattack">special attack</label><br>
+    <input type="number" id="specialattack" name="specialattack" th:value="${pokemon.special_attack}"><br>
+    <label for="specialdefence">special defence</label><br>
+    <input type="number" id="specialdefence" name="specialdefence" th:value="${pokemon.special_defence}"><br>
+    <label for="speed">secondary type</label><br>
+    <input type="number" id="speed" name="speed" th:value="${pokemon.speed}"><br>
+    <input type="submit">
+    </form>
+</body>
+</html>

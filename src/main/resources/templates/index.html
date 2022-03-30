@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Pokemons</h1>
+
+    <a href="/addPokemon"><button>Add new pokemon</button></a>
+    <table>
+        <tr>
+            <th>Picture</th>
+            <th>id</th>
+            <th>attack</th>
+            <th>defence</th>
+            <th>hp</th>
+            <th>name</th>
+            <th>primary type</th>
+            <th>secondary type</th>
+            <th>special attack</th>
+            <th>special defence</th>
+            <th>speed</th>
+        </tr>
+        <tr th:each="pokemon : ${pokemons}">
+            <td> <img th:src="@{'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + ${pokemon.id} + '.png'}" alt="pokemon image"> </td>
+            <td th:text="${pokemon.id}"></td>
+            <td th:text="${pokemon.attack}"></td>
+            <td th:text="${pokemon.defence}"></td>
+            <td th:text="${pokemon.hp}"></td>
+            <td th:text="${pokemon.name}"></td>
+            <td th:text="${pokemon.primary_type}"></td>
+            <td th:text="${pokemon.secondary_type}"></td>
+            <td th:text="${pokemon.special_attack}"></td>
+            <td th:text="${pokemon.special_defence}"></td>
+            <td th:text="${pokemon.speed}"></td>
+            <td><a th:href="@{'/delete/' + ${pokemon.id}}"><button>delete</button></a></td>
+            <td><a th:href="@{'/update/' + ${pokemon.id}}"><button>update</button></a></td>
+        </tr>
+    </table>
+</body>
+</html>
