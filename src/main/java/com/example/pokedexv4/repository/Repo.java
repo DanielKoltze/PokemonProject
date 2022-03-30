@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Repo {
-    private final String URL = "jdbc:mysql://b69921e8e7606e:167252a9@eu-cdbr-west-02.cleardb.net/heroku_0370f8a4b11925e?reconnect=true"; //efter3306 skriver hvad det er for en tabel
-    private final String user = "b69921e8e7606e";
-    private final String password = "167252a9";
+    //private final String URL = "jdbc:mysql://localhost:3306/Pokedex?useSSL=false&serverTimezone=UTC"; //efter3306 skriver hvad det er for en tabel
+    //private final String user = "root";
+    //private final String password = "rootroot";
     private Connection connection;
     public Repo(){
         setConnection();
@@ -47,7 +47,11 @@ public class Repo {
 
     private void setConnection() {
         try {
-            connection = DriverManager.getConnection(URL, user, password);
+            String pmPassword = System.getenv("pm_password");
+            String pmUrl = System.getenv("pm_url");
+            String pmUsername = System.getenv("pm_username");
+
+            connection = DriverManager.getConnection(pmUrl, pmUsername, pmPassword);
         } catch (Exception e) {
             System.out.println("Databasen er ikke connected");
         }
