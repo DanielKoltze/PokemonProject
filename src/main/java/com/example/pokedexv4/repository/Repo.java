@@ -1,6 +1,9 @@
 package com.example.pokedexv4.repository;
 
 import com.example.pokedexv4.model.Pokemon;
+import com.example.pokedexv4.utility.ConnectionManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -11,15 +14,13 @@ public class Repo {
     //private final String URL = "jdbc:mysql://localhost:3306/Pokedex?useSSL=false&serverTimezone=UTC"; //efter3306 skriver hvad det er for en tabel
     //private final String user = "root";
     //private final String password = "rootroot";
-    private Connection connection;
-    public Repo(){
-        setConnection();
-    }
+
 
     public List<Pokemon> selectAll(){
         List<Pokemon> pokemons = new ArrayList<>();
         String query = "SELECT * FROM pokemon;";
         try{
+            Connection connection = ConnectionManager.setConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()){
@@ -45,20 +46,11 @@ public class Repo {
         return pokemons;
     }
 
-    private void setConnection() {
-        try {
-            String pmPassword = System.getenv("pm_password");
-            String pmUrl = System.getenv("pm_url");
-            String pmUsername = System.getenv("pm_username");
 
-            connection = DriverManager.getConnection(pmUrl, pmUsername, pmPassword);
-        } catch (Exception e) {
-            System.out.println("Databasen er ikke connected");
-        }
-    }
     public void insert(int id, String name, int speed, int special_defence, int special_attack, int defence, int attack, int hp, String primary_type, String secondary_type){
         String query = "INSERT INTO pokemon VALUES (?,?,?,?,?,?,?,?,?,?)";
         try {
+            Connection connection = ConnectionManager.setConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, id);
             preparedStatement.setString(5, name);
@@ -82,6 +74,7 @@ public class Repo {
         String query = "DELETE FROM pokemon WHERE pokedex_number = " + id;
 
         try {
+            Connection connection = ConnectionManager.setConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.executeUpdate();
             System.out.println("Du slettede pokemonen med id: " + id);
@@ -95,6 +88,7 @@ public class Repo {
     public void update(int id, String name, int speed, int special_defence, int special_attack, int defence, int attack, int hp, String primary_type, String secondary_type){
         String query = "UPDATE pokemon SET attack = '" + attack + "', defence= '" + defence + "', hp= '" + hp + "', name = '" + name + "', primary_type = '" + primary_type + "', secondary_type = '" + secondary_type + "', special_attack = '" + special_attack + "', special_defence = '" + special_defence + "', speed = '" + special_attack + "' WHERE pokedex_number = " + id + ";";
         try{
+            Connection connection = ConnectionManager.setConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.executeUpdate();
         }catch(Exception e){
@@ -107,6 +101,7 @@ public class Repo {
         String query = "SELECT * FROM pokemon WHERE pokedex_number = " + id;
         Pokemon pokemon = null;
         try {
+            Connection connection = ConnectionManager.setConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
                 resultSet.next();
